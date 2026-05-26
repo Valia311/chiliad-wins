@@ -1,17 +1,10 @@
 import { supabaseAdmin } from "@/lib/supabaseAdmin";
 
-export async function GET(
-  req: Request,
-  context: {
-    params: Promise<{
-      slug: string;
-      action: string;
-      amount: string;
-    }>;
-  }
+async function handleRequest(
+  slug: string,
+  action: string,
+  amount: string
 ) {
-  const { slug, action, amount } = await context.params;
-
   const value = Number(amount || 1);
 
   let { data: current } = await supabaseAdmin
@@ -66,4 +59,34 @@ export async function GET(
     success: true,
     data,
   });
+}
+
+export async function GET(
+  req: Request,
+  context: {
+    params: Promise<{
+      slug: string;
+      action: string;
+      amount: string;
+    }>;
+  }
+) {
+  const { slug, action, amount } = await context.params;
+
+  return handleRequest(slug, action, amount);
+}
+
+export async function POST(
+  req: Request,
+  context: {
+    params: Promise<{
+      slug: string;
+      action: string;
+      amount: string;
+    }>;
+  }
+) {
+  const { slug, action, amount } = await context.params;
+
+  return handleRequest(slug, action, amount);
 }
