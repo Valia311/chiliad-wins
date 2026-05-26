@@ -1,13 +1,13 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 
 export default function AdminPage({
   params,
 }: {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }) {
-  const slug = params.slug;
+  const { slug } = use(params);
 
   const [data, setData] = useState<any>(null);
   const [customAmount, setCustomAmount] = useState<number>(1);
