@@ -2,7 +2,11 @@ import { supabaseAdmin } from "@/lib/supabaseAdmin";
 
 export async function GET(
   req: Request,
-  context: { params: Promise<{ slug: string }> }
+  context: {
+    params: Promise<{
+      slug: string;
+    }>;
+  }
 ) {
   const { slug } = await context.params;
 
@@ -15,7 +19,13 @@ export async function GET(
   if (!data) {
     const created = await supabaseAdmin
       .from("settings")
-      .insert({ slug })
+      .insert({
+        slug,
+        wins: 0,
+        multiplier: 1,
+        color: "#ffffff",
+        font: "Arial",
+      })
       .select()
       .single();
 
