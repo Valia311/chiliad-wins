@@ -33,6 +33,7 @@ async function handleRequest(
   let multiplier = current.multiplier;
 
   if (action === "addwin") wins += value * multiplier;
+  if (action === "addwinraw") wins += value;
   if (action === "removewin") wins -= value * multiplier;
 
   if (action === "addmulti") multiplier += value;
